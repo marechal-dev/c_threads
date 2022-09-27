@@ -1,12 +1,25 @@
-CC=gcc
+CC = gcc
+CFLAGS = -g
+LDFLAGS = -pthread
 
-build: hello_thread.c forked_counter.c unix_threads.c
+HELLO = hello_thread.c
+FORKED = forked_counter.c
+UTHREADS = unix_threads.c
+ALL_TARGETS = ${HELLO} ${FORKED} ${UTHREADS}
+
+all: hello forked uthreads
+
+hello: ${HELLO}
 	@echo "Compilling hello_thread.c..."
-	@${CC} hello_thread.c -o hello_thread.out
+	@${CC} ${CFLAGS} ${HELLO} -o hello_thread.out
+
+forked: ${FORKED}
 	@echo "Compilling forked_counter.c..."
-	@${CC} forked_counter.c -o forked_counter.out
-	@echo "Compilling unix_threads.c... (-pthread compilation flag)"
-	@${CC} unix_threads.c -pthread -o unix_threads.out
+	@${CC} ${CFLAGS} ${FORKED} -o forked_counter.out
+
+uthreads: ${UTHREADS}
+	@echo "Compilling unix_threads.c..."
+	@${CC} ${CFLAGS} ${LDFLAGS} ${UTHREADS} -o unix_threads.out
 
 clean: $(*.out)
 	@echo "Removing '.out' files..."
