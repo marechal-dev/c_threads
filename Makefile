@@ -7,6 +7,8 @@ FORKED = forked_counter.c
 UTHREADS = unix_threads.c
 ALL_TARGETS = ${HELLO} ${FORKED} ${UTHREADS}
 
+.DEFAULT_GOAL := all
+
 all: hello forked uthreads
 
 hello: ${HELLO}
