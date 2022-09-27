@@ -6,38 +6,47 @@
  * Class: Operation Systems
  *
  * Created at: 26/09/2022, 22:00
- * Last update: 26/09/2022, 22:53
+ * Last update: 27/09/2022, 10:54
  *
- * Dependencies: stdio.h, unistd.h, stdbool.h
+ * Dependencies: stdio.h, unistd.h, stdlib.h, stdbool.h, sys/types.h, sys/wait.h
  *
  * Purpose: The purpose of this piece of code is to evaluate the behavior of a global variable
  * on forks of a parent process.
+ *
+ * Further readings: "man fork"
  */
 
-// Declaring our libraries
+// Declaring our dependencies
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdbool.h>
-
-// Declaring a falue return value for fork creation (for semantics)
-// Read "man fork" if needed
-#define FAILED_FORK_RETURN -1
-
-int counter = 0;
+#include <sys/types.h>
+#include <sys/wait.h>
 
 // I'm not using Command Line arguments, so I'm passing "void" to our "main"
 int main(void) {
-	printf("Address of 'counter' (before 'fork'): %p | Value: %d\n", &counter, counter);
-	pid_t myNewProcess = fork();
+	int counter = 0;
 
-	bool forkCreationFailed = myNewProcess == FAILED_FORK_RETURN;
+	pid_t newProcess = fork();
+
+	bool forkCreationFailed = newProcess < 0;
 	if (forkCreationFailed) {
-		printf("Fork could not be created!\n");
-		return -1; // We can exit the execution if no forks are created, because we need them!
+		printf("Could not create a new fork! Exiting...\n");
+		return -1;
 	}
 
-	counter++;
-	printf("Address of 'counter' (after 'fork'): %p | Value: %d\n", &counter, counter);
+	if (newProcess == 0) {
+		printf("At Child (forked) process:\n");
+		counter++;
+		printf("Process ID: %d | Address of 'counter': %p | Value: %d\n", (int)getpid(), &counter, counter);
+		exit(0);
+	} else {
+		wait(NULL); // Waiting until the child has finished
+		printf("At Parent process:\n");
+		counter--;
+		printf("Process ID: %d | Address of 'counter': %p | Value: %d\n", (int)getpid(), &counter, counter);
+	}
 
 	return 0;
 }
