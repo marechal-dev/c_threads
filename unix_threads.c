@@ -1,6 +1,7 @@
 /* Unix Threads
  *
  * Author: Pietro Piva Viera
+
  * Federal University of Rio Grande (FURG)
  * Class: Operating Systems
  *

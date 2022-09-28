@@ -1,6 +1,7 @@
 /*
  * Forked Counter
- * Written by: Pietro Piva Vieira
+ *
+ * Author: Pietro Piva Vieira
  *
  * Federal University of Rio Grande (FURG)
  * Information Systems
