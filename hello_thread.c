@@ -1,12 +1,12 @@
 /* Hello from Forks!
  *
+ * Author: Pietro Piva Vieira
+ * Federal University of Rio Grande (FURG)
+ * Class: Operating Systems
  *
+ * Dependencies: stdio.h, unistd.h, stdlib.h, stdbool.h, sys/types.h, sys/wait.h
  *
- *
- *
- *
- *
- *
+ * Purpose: To use Forks and study the behavior of them.
  */
 
 #include <stdio.h>

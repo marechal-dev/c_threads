@@ -2,11 +2,9 @@
  * Forked Counter
  * Written by: Pietro Piva Vieira
  *
- * Information Systems, Federal University of Rio Grande (FURG)
+ * Federal University of Rio Grande (FURG)
+ * Information Systems
  * Class: Operation Systems
- *
- * Created at: 26/09/2022, 22:00
- * Last update: 27/09/2022, 10:54
  *
  * Dependencies: stdio.h, unistd.h, stdlib.h, stdbool.h, sys/types.h, sys/wait.h
  *
