@@ -25,7 +25,7 @@
 
 // I'm not using Command Line arguments, so I'm passing "void" to our "main"
 int main(void) {
-	int counter = 0;
+	int globalCounter = 0;
 
 	pid_t newProcess = fork();
 
@@ -35,15 +35,16 @@ int main(void) {
 		return -1;
 	}
 
+
 	if (newProcess == 0) {
 		printf("At Child (forked) process:\n");
-		counter++;
+		globalCounter++;
 		printf("Process ID: %d | Address of 'counter': %p | Value: %d\n", (int)getpid(), &counter, counter);
 		exit(0);
 	} else {
 		wait(NULL); // Waiting until the child has finished
 		printf("At Parent process:\n");
-		counter--;
+		globalCounter--;
 		printf("Process ID: %d | Address of 'counter': %p | Value: %d\n", (int)getpid(), &counter, counter);
 	}
 

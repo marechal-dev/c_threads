@@ -10,6 +10,7 @@
  * Purpose: To use Forks and study the behavior of them.
  */
 
+// Declaring our dependencies
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -17,6 +18,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+// Define the return from a failed fork creation
 #define FAILED_FORK_RETURN -1
 
 int main(void) {
@@ -27,12 +29,13 @@ int main(void) {
 		printf("Fork could not be created!\n");
 		return -1;
 	}
-
+	
+	// If is the child process
 	if (myNewProcess == 0) {
 		printf("At Child! | Process ID: %d\n", (int)getpid());
 		exit(0);
 	} else {
-		wait(NULL);
+		wait(NULL); // Waiting for child process to exit
 		printf("At Parent! | Process ID: %d\n", (int)getpid());
 	}
 
