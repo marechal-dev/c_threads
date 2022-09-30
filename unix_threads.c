@@ -1,13 +1,15 @@
 /* Unix Threads
  *
  * Author: Pietro Piva Viera
-
+ *
  * Federal University of Rio Grande (FURG)
  * Class: Operating Systems
  *
  * Dependencies: stdio.h, stdlib.h, pthread.h
  *
  * Purpose: To utilize and study the behavior of Threads.
+ *
+ * Other information: This file is compilled under the "-pthread" flag.
  */
 
 // Including our dependencies
@@ -18,8 +20,10 @@
 // Method that will run on our Threads
 void* doParallelLoop(void *arg);
 
+// A simple global counter to increment on our threads
 int globalCounter = 0;
 
+// No CLI args, then void
 int main(void) {
 	// Declaring 5 Threads
 	pthread_t threadIdA;
@@ -36,6 +40,10 @@ int main(void) {
 	int joinStatus;
 
 	// Verifying errors on creation
+	/*
+	 * Basically, the "pthread_create" method returns "0" if the threads was successfully created and
+	 * "-1" if it fails to create a new thread, so we need to verify if it's everything fine.
+	 */
 	creationStatus = pthread_create(&threadIdA, NULL, doParallelLoop, (void*)("Hello from Thread A!"));
 	if (creationStatus != 0) {
 		printf("Error creating Thread A!\n");
@@ -67,6 +75,9 @@ int main(void) {
 	}
 
 	// Join status and printing the execution results for our threads
+	/*
+	 * Same as the "pthread_create" explanation"
+	 */
 	joinStatus = pthread_join(threadIdA, &threadResult);	
 	if (joinStatus != 0) {
 		printf("Error joining Thread A!\n");

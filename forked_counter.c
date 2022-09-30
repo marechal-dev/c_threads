@@ -23,20 +23,22 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#define FAILED_FORK_CREATION_RETURN -1
+
 // I'm not using Command Line arguments, so I'm passing "void" to our "main"
 int main(void) {
 	int globalCounter = 0;
 
 	pid_t newProcess = fork();
 
-	bool forkCreationFailed = newProcess < 0;
+	bool forkCreationFailed = newProcess == FAILED_FORK_CREATION_RETURN || newProcess < 0;
 	if (forkCreationFailed) {
 		printf("Could not create a new fork! Exiting...\n");
 		return -1;
 	}
 
-
-	if (newProcess == 0) {
+	bool isChildProcess = newProcess == 0;
+	if (isChildProcess) {
 		printf("At Child (forked) process:\n");
 		globalCounter++;
 		printf("Process ID: %d | Address of 'counter': %p | Value: %d\n", (int)getpid(), &counter, counter);
