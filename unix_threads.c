@@ -116,7 +116,6 @@ int main(void) {
 	return 0;
 }
 
-
 void* doParallelLoop(void* arg) {
 	int counter = 10;
 
@@ -129,3 +128,4 @@ void* doParallelLoop(void* arg) {
 
 	pthread_exit(arg);
 }
+
